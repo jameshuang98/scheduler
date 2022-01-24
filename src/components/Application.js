@@ -57,6 +57,8 @@ export default function Application(props) {
       id={a.id}
       time={a.time}
       interview={interview}
+      day={state.day}
+      state={state}
     />
     );
   });
