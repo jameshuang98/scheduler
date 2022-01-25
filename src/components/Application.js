@@ -23,9 +23,9 @@ export default function Application(props) {
   useEffect(() => {
 
     Promise.all([
-      axios.get('/api/days'), // CHANGE THIS
-      axios.get('/api/appointments'), // CHANGE THIS
-      axios.get('/api/interviewers') // CHANGE THIS
+      axios.get('/api/days'),
+      axios.get('/api/appointments'),
+      axios.get('/api/interviewers')
     ])
       .then((all) => {
         console.log(all[0].data); // first
@@ -56,7 +56,7 @@ export default function Application(props) {
     };
 
     return (
-      axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
+      axios.put(`/api/appointments/${id}`, appointment)
         .then((req, res) => {
           // console.log(res)
           setState((prev) => ({
@@ -76,7 +76,7 @@ export default function Application(props) {
     };
 
     return (
-      axios.delete(`http://localhost:8001/api/appointments/${id}`)
+      axios.delete(`/api/appointments/${id}`)
         .then(() => {
           console.log('then')
           setState((prev) => ({
