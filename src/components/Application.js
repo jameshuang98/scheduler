@@ -17,7 +17,12 @@ export default function Application(props) {
     interviewers: {}
   });
 
-  const setDay = day => setState({ ...state, day });
+  const setDay = day => setState((prev) => ({
+    ...state,
+    day
+  })
+  );
+
 
 
   useEffect(() => {
@@ -70,9 +75,14 @@ export default function Application(props) {
   const deleteInterview = (id) => {
     console.log('del')
 
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    }
+
     const appointments = {
       ...state.appointments,
-      id: null
+      [id]: appointment // [id] evaluates to the variable id
     };
 
     return (
@@ -84,8 +94,12 @@ export default function Application(props) {
             appointments
           }))
         })
+        .catch((err) => {
+          console.log(err)
+        })
     )
   }
+
 
   const dailyAppointments = getAppointmentsForDay(state, state.day)
 
