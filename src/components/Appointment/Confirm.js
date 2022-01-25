@@ -4,10 +4,14 @@ import Button from "components/Button";
 export default function Confirm(props) {
 
     const deleteInterview = (id) => {
-        props.transition('DELETING')
+        props.transition('DELETING', true)
         props.onDelete(id)
             .then(() => {
                 props.transition('EMPTY')
+            })
+            .catch((err) => {
+                console.log('deleting interview error', err)
+                props.transition('ERROR_DELETE', true)
             })
     };
 
