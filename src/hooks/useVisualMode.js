@@ -20,11 +20,11 @@ export default function useVisualMode(initialMode) {
         if (history.length === 1) {
             return;
         }
-
+        
         const newHistory = [...history]
         newHistory.pop();
         setHistory(newHistory)
-
+        
         const prevMode = newHistory.slice(-1)[0]
         setMode(prevMode)
     };

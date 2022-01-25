@@ -17,18 +17,15 @@ export default function Application(props) {
     interviewers: {}
   });
 
-  const dailyAppointments = getAppointmentsForDay(state, state.day)
-
-
   const setDay = day => setState({ ...state, day });
 
 
   useEffect(() => {
 
     Promise.all([
-      axios.get('http://localhost:8001/api/days'),
-      axios.get('http://localhost:8001/api/appointments'),
-      axios.get('http://localhost:8001/api/interviewers')
+      axios.get('/api/days'), // CHANGE THIS
+      axios.get('/api/appointments'), // CHANGE THIS
+      axios.get('/api/interviewers') // CHANGE THIS
     ])
       .then((all) => {
         console.log(all[0].data); // first
@@ -47,19 +44,65 @@ export default function Application(props) {
 
   }, []);
 
+  const bookInterview = (id, interview) => {
+    console.log('bookInterview, id, interview', id, interview)
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return (
+      axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
+        .then((req, res) => {
+          // console.log(res)
+          setState((prev) => ({
+            ...prev,
+            appointments
+          }))
+        })
+    )
+  }
+
+  const deleteInterview = (id) => {
+    console.log('del')
+
+    const appointments = {
+      ...state.appointments,
+      id: null
+    };
+
+    return (
+      axios.delete(`http://localhost:8001/api/appointments/${id}`)
+        .then(() => {
+          console.log('then')
+          setState((prev) => ({
+            ...prev,
+            appointments
+          }))
+        })
+    )
+  }
+
+  const dailyAppointments = getAppointmentsForDay(state, state.day)
 
   const parsedAppointments = dailyAppointments.map((a) => {
     const interview = getInterview(state, a.interview);
 
     return (
       <Appointment
-      key={a.id}
-      id={a.id}
-      time={a.time}
-      interview={interview}
-      day={state.day}
-      state={state}
-    />
+        key={a.id}
+        id={a.id}
+        time={a.time}
+        interview={interview}
+        day={state.day}
+        state={state}
+        bookInterview={bookInterview}
+        onDelete={deleteInterview}
+      />
     );
   });
 
