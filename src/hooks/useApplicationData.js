@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import DayList from "components/DayList";
 
 
 export default function useApplicationData(initialMode) {
@@ -14,8 +15,8 @@ export default function useApplicationData(initialMode) {
         ...state,
         day
     }));
-    useEffect(() => {
 
+    useEffect(() => {
         Promise.all([
             axios.get('/api/days'),
             axios.get('/api/appointments'),
@@ -38,6 +39,39 @@ export default function useApplicationData(initialMode) {
 
     }, []);
 
+
+
+    const updateSpots = (id, appointments) => {
+        const day = state.days.find((day) => day.appointments.includes(id))
+        // console.log('day', day)
+        const dayNumber = day.id - 1;
+        // console.log('dayArray', day.appointments)
+
+        let spots = 0;
+        for (const appointment of day.appointments) {
+            if (!appointments[appointment].interview) {
+                spots++;
+            }
+        }
+        console.log('spots', spots)
+
+        const dayUpdated = {
+            ...state.days[dayNumber],
+            spots: spots
+        }
+        // console.log('dayUpdated', dayUpdated)
+
+        const days = [...state.days]
+        days[dayNumber] = dayUpdated
+        
+        // console.log('days', days)
+
+        return days;
+
+
+
+    }
+
     const bookInterview = (id, interview) => {
         console.log('bookInterview, id, interview', id, interview)
         const appointment = {
@@ -53,11 +87,14 @@ export default function useApplicationData(initialMode) {
             axios.put(`/api/appointments/${id}`, appointment)
                 .then((req, res) => {
                     // console.log(res)
+                    const daysUpdated = updateSpots(id, appointments) 
                     setState((prev) => ({
                         ...prev,
-                        appointments
+                        appointments,
+                        days: daysUpdated
                     }))
                 })
+
             // .catch((err) =>{
             //   console.log('saving error', err)
             // })
@@ -80,11 +117,13 @@ export default function useApplicationData(initialMode) {
         return (
             axios.delete(`/api/appointments/${id}`)
                 .then(() => {
-                    console.log('then')
+                    const daysUpdated = updateSpots(id, appointments) 
                     setState((prev) => ({
                         ...prev,
-                        appointments
-                    }))
+                        appointments,
+                        days: daysUpdated
+                    })
+                    )
                 })
             // .catch((err) => {
             //   console.log('deleting error', err)
