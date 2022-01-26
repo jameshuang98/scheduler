@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import DayList from "components/DayList";
-
 
 export default function useApplicationData(initialMode) {
     const [state, setState] = useState({
@@ -58,18 +56,12 @@ export default function useApplicationData(initialMode) {
         const dayUpdated = {
             ...state.days[dayNumber],
             spots: spots
-        }
-        // console.log('dayUpdated', dayUpdated)
+        };
 
-        const days = [...state.days]
-        days[dayNumber] = dayUpdated
+        const days = [...state.days];
+        days[dayNumber] = dayUpdated;
         
-        // console.log('days', days)
-
         return days;
-
-
-
     }
 
     const bookInterview = (id, interview) => {
