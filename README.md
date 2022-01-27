@@ -55,7 +55,6 @@ npm run storybook
 
 
 ## Dependencies
-- Node.js
 - Axios
 - React
 - Babel
