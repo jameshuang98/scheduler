@@ -40,10 +40,8 @@ export default function useApplicationData(initialMode) {
 
 
     const updateSpots = (id, appointments) => {
-        const day = state.days.find((day) => day.appointments.includes(id))
-        // console.log('day', day)
+        const day = state.days.find((day) => day.appointments.includes(id));
         const dayNumber = day.id - 1;
-        // console.log('dayArray', day.appointments)
 
         let spots = 0;
         for (const appointment of day.appointments) {
@@ -51,7 +49,6 @@ export default function useApplicationData(initialMode) {
                 spots++;
             }
         }
-        console.log('spots', spots)
 
         const dayUpdated = {
             ...state.days[dayNumber],
@@ -65,7 +62,6 @@ export default function useApplicationData(initialMode) {
     }
 
     const bookInterview = (id, interview) => {
-        console.log('bookInterview, id, interview', id, interview)
         const appointment = {
             ...state.appointments[id],
             interview: { ...interview }
@@ -86,20 +82,15 @@ export default function useApplicationData(initialMode) {
                         days: daysUpdated
                     }))
                 })
-
-            // .catch((err) =>{
-            //   console.log('saving error', err)
-            // })
-        )
-    }
+        );
+    };
 
     const deleteInterview = (id) => {
-        console.log('del')
 
         const appointment = {
             ...state.appointments[id],
             interview: null
-        }
+        };
 
         const appointments = {
             ...state.appointments,
@@ -120,8 +111,8 @@ export default function useApplicationData(initialMode) {
             // .catch((err) => {
             //   console.log('deleting error', err)
             // })
-        )
+        );
     }
 
     return { state, setDay, bookInterview, deleteInterview };
-}
+};

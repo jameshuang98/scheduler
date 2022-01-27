@@ -48,13 +48,10 @@ const state = {
       "name": "Sylvia Palmer The Second",
       "avatar": "https://i.imgur.com/LpaY82x.png"
     }
-
-
   }
-
 };
 
-  test("getAppointmentsForDay returns an array", () => {
+test("getAppointmentsForDay returns an array", () => {
   const result = getAppointmentsForDay(state, "Monday");
   expect(Array.isArray(result)).toBe(true);
 });

@@ -7,8 +7,6 @@ import Appointment from "./Appointment";
 import { getAppointmentsForDay, getInterview } from "helpers/selectors";
 import useApplicationData from 'hooks/useApplicationData';
 
-
-
 export default function Application(props) {
 
   const {
@@ -19,7 +17,7 @@ export default function Application(props) {
   } = useApplicationData();
 
 
-  const dailyAppointments = getAppointmentsForDay(state, state.day)
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const parsedAppointments = dailyAppointments.map((a) => {
     const interview = getInterview(state, a.interview);
@@ -66,4 +64,4 @@ export default function Application(props) {
       </section>
     </main>
   );
-}
+};

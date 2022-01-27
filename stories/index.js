@@ -200,6 +200,6 @@ storiesOf("Appointment", module)
       />
       <Appointment time="5pm" />
     </Fragment>
-  ))
+  ));
 
 
