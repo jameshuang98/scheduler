@@ -8,21 +8,21 @@ This project also includes Unit and Integration testing via Jest, as well as End
 
 ## Screenshots of App
 
-<h4>Screenshot of appointments on Monday:</h4>
+<h4>Screenshot of interviews on Monday:</h4>
 
-!["Screenshot of appointments on Monday"](https://github.com/jameshuang98/scheduler/blob/master/public/images/Monday.png?raw=true)
+!["Screenshot of interviews on Monday"](https://github.com/jameshuang98/scheduler/blob/master/public/images/Monday.png?raw=true)
 
-<h4>Screenshot of appointments on Friday: </h4>
+<h4>Screenshot of interviews on Friday: </h4>
 
-!["Screenshot of appointments on Friday"](https://github.com/jameshuang98/scheduler/blob/master/public/images/Friday.png?raw=true)
+!["Screenshot of interviews on Friday"](https://github.com/jameshuang98/scheduler/blob/master/public/images/Friday.png?raw=true)
 
-<h4>Screenshot of adding an appointment:</h4>
+<h4>Screenshot of adding an interview:</h4>
 
-!["Screenshot of adding an appointment"](https://github.com/jameshuang98/scheduler/blob/master/public/images/Add2.png?raw=true)
+!["Screenshot of adding an interview"](https://github.com/jameshuang98/scheduler/blob/master/public/images/Add2.png?raw=true)
 
-<h4>Screenshot of confirmation when deleting an appointment:</h4>
+<h4>Screenshot of confirmation when deleting an interview:</h4>
 
-!["Screenshot of confirmation when deleting an appointment"](https://github.com/jameshuang98/scheduler/blob/master/public/images/Delete.png?raw=true)
+!["Screenshot of confirmation when deleting an interview"](https://github.com/jameshuang98/scheduler/blob/master/public/images/Delete.png?raw=true)
 
 
 ## Setup
