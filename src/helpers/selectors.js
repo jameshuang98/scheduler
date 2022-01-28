@@ -1,4 +1,5 @@
 
+// returning interview appointments for a certain day
 export function getAppointmentsForDay(state, day) {
     let appointmentsForDay = [];
     const dayObj = state.days.find(d => d.name === day);
@@ -9,12 +10,11 @@ export function getAppointmentsForDay(state, day) {
             appointmentsForDay.push(state.appointments[id])
         }
     }
-
     return appointmentsForDay;
 }
 
 
-
+// return interview information if interview exists
 export function getInterview(state, interview) {
     let output = {};
     if (interview) {
@@ -29,7 +29,7 @@ export function getInterview(state, interview) {
     return null;
 }
 
-
+// returning interviewers for a certain day
 export function getInterviewersForDay(state, day) {
     let interviewersForDay = [];
     const dayObj = state.days.find(d => d.name === day);
@@ -40,6 +40,5 @@ export function getInterviewersForDay(state, day) {
             interviewersForDay.push(state.interviewers[id])
         }
     }
-
     return interviewersForDay;
 }
