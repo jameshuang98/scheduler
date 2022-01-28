@@ -35,7 +35,7 @@ export default function useApplicationData(initialMode) {
     }, []);
 
 
-    // counting number of 
+    // counting number of empty appointments for certain day
     const updateSpots = (id, appointments) => {
         const day = state.days.find((day) => day.appointments.includes(id));
         const dayNumber = day.id - 1;
