@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "components/Appointment/styles.scss";
 import Header from "./Header";
 import Show from "./Show";
@@ -23,15 +23,21 @@ export default function Appointment(props) {
     const ERROR_DELETE = "ERROR_DELETE";
 
     const { mode, transition, back } = useVisualMode(
-        props.interview ? SHOW : EMPTY
+        props.interview ? SHOW : EMPTY // when props.interview contains an interview, pass the SHOW mode to useVisualMode
     );
 
+    // define student and interviewer state outside of FORM component so data is intact if an error occurs
+    const [student, setStudent] = useState(props.interview ? props.interview.student : "");
+    const [interviewer, setInterviewer] = useState(props.interview ? props.interview.interviewer.id : null);
+
+
+    // save interview
     function save(name, interviewer) {
         const interview = {
             student: name,
             interviewer
         };
-        transition(SAVING);
+        transition(SAVING); // show the SAVING mode before calling props.bookInterview
         props.bookInterview(props.id, interview)
             .then(() => transition(SHOW))
             .catch(() => {
@@ -39,13 +45,14 @@ export default function Appointment(props) {
             })
     }
 
+    // delete interview and transition to the status component
     function deleteInterview(id) {
-        transition('DELETING', true)
+        transition('DELETING', true) // show the DELETING mode before calling props.deleteInterview
         props.deleteInterview(id)
             .then(() => {
                 transition('EMPTY')
             })
-            .catch((err) => {
+            .catch(() => {
                 transition('ERROR_DELETE', true)
             })
     }
@@ -67,7 +74,15 @@ export default function Appointment(props) {
                 />
             )}
 
-            {mode === CREATE && <FORM interviewers={getInterviewersForDay(props.state, props.day)} onCancel={back} onSave={save} />}
+            {mode === CREATE && <FORM
+                interviewers={getInterviewersForDay(props.state, props.day)}
+                onCancel={back} 
+                onSave={save}
+                student={student}
+                setStudent={setStudent}
+                interviewer={interviewer}
+                setInterviewer={setInterviewer}
+                 />}
 
             {mode === SAVING && <Status message='Saving' />}
 
@@ -80,9 +95,11 @@ export default function Appointment(props) {
                 transition={transition} />}
 
             {mode === EDIT && <FORM
+                setStudent={setStudent}
                 interviewers={getInterviewersForDay(props.state, props.day)}
-                student={props.interview.student}
-                interviewer={props.interview.interviewer.id}
+                student={student}
+                interviewer={interviewer}
+                setInterviewer={setInterviewer}
                 onCancel={back}
                 onSave={save}
             />}
