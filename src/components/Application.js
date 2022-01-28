@@ -31,7 +31,7 @@ export default function Application(props) {
         day={state.day}
         state={state}
         bookInterview={bookInterview}
-        onDelete={deleteInterview}
+        deleteInterview={deleteInterview}
       />
     );
   });

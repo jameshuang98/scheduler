@@ -14,18 +14,15 @@ export default function useApplicationData(initialMode) {
         day
     }));
 
+    // grouping 3 axios calls to scheduler-api to get the data
     useEffect(() => {
         Promise.all([
             axios.get('/api/days'),
             axios.get('/api/appointments'),
             axios.get('/api/interviewers')
         ])
+            // data returned from Promise.all is stored in an array called 'all'
             .then((all) => {
-                console.log(all[0].data); // first
-                console.log(all[1].data); // second
-                console.log(all[2].data); // third
-
-                // const [get_days, get_appointments, get_interviewers] = all;
 
                 setState(prev => ({
                     ...prev,
@@ -38,7 +35,7 @@ export default function useApplicationData(initialMode) {
     }, []);
 
 
-
+    // counting number of 
     const updateSpots = (id, appointments) => {
         const day = state.days.find((day) => day.appointments.includes(id));
         const dayNumber = day.id - 1;
@@ -57,7 +54,7 @@ export default function useApplicationData(initialMode) {
 
         const days = [...state.days];
         days[dayNumber] = dayUpdated;
-        
+
         return days;
     }
 
@@ -74,8 +71,7 @@ export default function useApplicationData(initialMode) {
         return (
             axios.put(`/api/appointments/${id}`, appointment)
                 .then((req, res) => {
-                    // console.log(res)
-                    const daysUpdated = updateSpots(id, appointments) 
+                    const daysUpdated = updateSpots(id, appointments)
                     setState((prev) => ({
                         ...prev,
                         appointments,
@@ -100,7 +96,7 @@ export default function useApplicationData(initialMode) {
         return (
             axios.delete(`/api/appointments/${id}`)
                 .then(() => {
-                    const daysUpdated = updateSpots(id, appointments) 
+                    const daysUpdated = updateSpots(id, appointments)
                     setState((prev) => ({
                         ...prev,
                         appointments,
