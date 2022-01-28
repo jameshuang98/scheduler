@@ -31,7 +31,7 @@ export default function Appointment(props) {
     const [interviewer, setInterviewer] = useState(props.interview ? props.interview.interviewer.id : null);
 
 
-    // save interview
+    // save interview to state
     function save(name, interviewer) {
         const interview = {
             student: name,
@@ -45,22 +45,38 @@ export default function Appointment(props) {
             })
     }
 
-    // delete interview and transition to the status component
+    // delete interview from state
     function deleteInterview(id) {
         transition('DELETING', true) // show the DELETING mode before calling props.deleteInterview
         props.deleteInterview(id)
             .then(() => {
                 transition('EMPTY')
+                setStudent('')
+                setInterviewer(null)
             })
             .catch(() => {
                 transition('ERROR_DELETE', true)
             })
+    }
+    
+    function cancel() {
+        setStudent(props.interview.student);
+        setInterviewer(props.interview.interviewer.id);
+        back();
+    }
+
+    // // reset the input data and transition back to the previous mode
+    function reset() {
+        setStudent('');
+        setInterviewer(null);
+        back();
     }
 
     return (
         <article className="appointment">
             <Header time={props.time} />
 
+            {/* Depending on the mode, a different component will render in this Appointment timeslot */}
             {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
 
             {mode === SHOW && (
@@ -76,7 +92,7 @@ export default function Appointment(props) {
 
             {mode === CREATE && <FORM
                 interviewers={getInterviewersForDay(props.state, props.day)}
-                onCancel={back} 
+                onCancel={reset} 
                 onSave={save}
                 student={student}
                 setStudent={setStudent}
@@ -100,7 +116,7 @@ export default function Appointment(props) {
                 student={student}
                 interviewer={interviewer}
                 setInterviewer={setInterviewer}
-                onCancel={back}
+                onCancel={cancel}
                 onSave={save}
             />}
 
