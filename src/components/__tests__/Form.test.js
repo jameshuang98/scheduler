@@ -35,13 +35,11 @@ describe("Form", () => {
   it("validates that the student name is not blank", () => {
     /* 1. Create the mock onSave function */
     const onSave = jest.fn();
-    const setStudent = jest.fn();
-    const setInterviewer = jest.fn();
 
     /* 2. Render the Form with interviewers and the onSave mock function passed as an onSave prop, the name prop should be blank or undefined */
 
     const { getByText } = render(
-      <Form interviewers={interviewers} onSave={onSave} setStudent={setStudent} setInterviewer={setInterviewer} student='' mode='CREATE' />
+      <Form interviewers={interviewers} onSave={onSave} />
     );
 
     /* 3. Click the save button */
@@ -49,30 +47,6 @@ describe("Form", () => {
 
     expect(getByText(/Please enter your name/i)).toBeInTheDocument();
     expect(onSave).not.toHaveBeenCalled();
-  });
-
-  it("can successfully save after trying to submit an empty student name", () => {
-    const onSave = jest.fn();
-
-    const { getByText, getByPlaceholderText, queryByText } = render(
-      <Form interviewers={interviewers} onSave={onSave} />
-    );
-
-    fireEvent.click(getByText("Save"));
-
-    expect(getByText(/Please enter your name/i)).toBeInTheDocument();
-    expect(onSave).not.toHaveBeenCalled();
-
-    // fireEvent.change(getByPlaceholderText("Enter Student Name"), {
-    //   target: { value: "Lydia Miller-Jones" }
-    // });
-
-    // fireEvent.click(getByText("Save"));
-
-    // expect(queryByText(/student name cannot be blank/i)).toBeNull();
-
-    // expect(onSave).toHaveBeenCalledTimes(1);
-    // expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null);
   });
 
   it("calls onCancel and resets the input field", () => {
@@ -100,10 +74,7 @@ describe("Form", () => {
 
     fireEvent.click(getByText("Cancel"));
 
-    // expect(queryByText(/Please enter your name/i)).toBeNull();
-
-    // expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
-
+    expect(queryByText(/Please enter your name/i)).toBeNull();
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
 
