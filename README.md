@@ -53,9 +53,10 @@ npm test
 npm run storybook
 ```
 
+
 ## Connecting to API server
 
-Fork and clone the [scheduler-api](https://github.com/lighthouse-labs/scheduler-api) and follow the README.md instructions to configure and run the API server. The scheduler client (scheduler) and the scheduler server (scheduler-api) need to be run concurrently. The client is set up to run on port 8000, and the API server is set up to run on port 8001.
+Fork and clone the [scheduler-api](https://github.com/lighthouse-labs/scheduler-api) repo and follow the README.md instructions to configure and run the API server. The scheduler client (scheduler) and the scheduler server (scheduler-api) need to be run concurrently. The client is set up to run on port 8000, and the API server is set up to run on port 8001.
 
 
 ## Dependencies
