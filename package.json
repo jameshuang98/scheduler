@@ -47,7 +47,7 @@
     "prop-types": "^15.8.1",
     "react-test-renderer": "^16.9.0"
   },
-  "proxy": "http://localhost:8001",
+  "proxy": "wss://interview-scheduler-jh.herokuapp.com/",
   "jest": {
     "watchPathIgnorePatterns": [
       "<rootDir>/node_modules/",
